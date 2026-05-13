@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Rokid APKs</string>
+    <string name="app_name_short">ROKID APKS · iOS</string>
+    <string name="status_idle">Ready — tap to search for iOS phone</string>
+    <string name="status_opening_wifi">Opening Wi-Fi settings…</string>
+    <string name="status_wifi_unavailable">Unable to open Wi-Fi settings</string>
+    <string name="no_paired_phone">No iOS phone found</string>
+    <string name="action_open_wifi">[ OPEN WIFI ]</string>
+    <string name="hint_swipe_tap">TAP TO SEARCH   SLIDE RIGHT FOR WIFI</string>
+    <string name="hint_tap_connect">TAP TO CONNECT</string>
+    <string name="hint_tap_continue">TAP TO CONTINUE</string>
+    <string name="hint_wifi_action">TAP OPEN WIFI</string>
+    <string name="log_opening_wifi">Opening Wi-Fi settings</string>
+    <string name="log_waiting">Waiting…</string>
+</resources>

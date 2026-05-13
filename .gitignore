@@ -1,0 +1,18 @@
+# Android
+*.iml
+.gradle/
+local.properties
+.DS_Store
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+
+# iOS / Xcode
+ios-app/RokidAPKsPhone.xcodeproj/xcuserdata/
+ios-app/RokidAPKsPhone.xcodeproj/project.xcworkspace/xcuserdata/
+ios-app/DerivedData/
+ios-app/*.xcworkspace
+*.xcuserstate
