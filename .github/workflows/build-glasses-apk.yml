@@ -1,0 +1,72 @@
+name: Build Glasses APK
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew || true
+
+      - name: Generate gradlew if missing
+        run: |
+          if [ ! -f gradlew ]; then
+            gradle wrapper --gradle-version=8.7
+          fi
+
+      - name: Build glasses-app debug APK
+        run: ./gradlew :glasses-app:assembleDebug --no-daemon
+
+      - name: Rename APK
+        run: |
+          mkdir -p release
+          cp glasses-app/build/outputs/apk/debug/glasses-app-debug.apk \
+             release/RokidAPKs-iOS-glasses-companion.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: glasses-companion-apk
+          path: release/RokidAPKs-iOS-glasses-companion.apk
+          retention-days: 90
+
+      - name: Create or update release with APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: "Glasses Companion APK"
+          body: |
+            ## Rokid-APKs iOS — Glasses Companion App
+
+            Install this APK on your Rokid glasses to use with the iOS phone app.
+
+            **Requirements:**
+            - Rokid glasses running Android
+            - iPhone and glasses on the same Wi-Fi network
+
+            **Install via ADB:**
+            ```
+            adb install RokidAPKs-iOS-glasses-companion.apk
+            ```
+
+            Built from commit ${{ github.sha }}.
+          files: release/RokidAPKs-iOS-glasses-companion.apk
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
